@@ -23,6 +23,33 @@
 			</g:if>
 			<ol class="property-list exercise">
 			
+				<g:if test="${exerciseInstance?.name}">
+				<li class="fieldcontain">
+					<span id="name-label" class="property-label"><g:message code="exercise.name.label" default="Name" /></span>
+					
+						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${exerciseInstance}" field="name"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${exerciseInstance?.description}">
+				<li class="fieldcontain">
+					<span id="description-label" class="property-label"><g:message code="exercise.description.label" default="Description" /></span>
+					
+						<span class="property-value" aria-labelledby="description-label"><g:fieldValue bean="${exerciseInstance}" field="description"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${exerciseInstance?.instructions}">
+				<li class="fieldcontain">
+					<span id="instructions-label" class="property-label"><g:message code="exercise.instructions.label" default="Instructions" /></span>
+					
+						<span class="property-value" aria-labelledby="instructions-label"><g:fieldValue bean="${exerciseInstance}" field="instructions"/></span>
+					
+				</li>
+				</g:if>
+			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">
