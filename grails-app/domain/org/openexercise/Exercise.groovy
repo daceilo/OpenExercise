@@ -6,6 +6,7 @@ class Exercise {
     String description
     String instructions
     Image image
+    Image thumbnail
 
     static belongsTo = [exerciseType:ExerciseType]
 
@@ -13,6 +14,7 @@ class Exercise {
         name nullable: false, blank: false
         description nullable: false, blank:  false
         instructions nullable: false, blank:  true
-        image nullable: true; blank: false
+        image nullable: true, blank: false
+        thumbnail nullable: true, blank: false
     }
 }

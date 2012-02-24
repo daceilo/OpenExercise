@@ -54,6 +54,7 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="OpenExercise-grailsPlugins" />
+    <orderEntry type="library" name="imgscalr-lib-4.2" level="project" />
   </component>
 </module>
 

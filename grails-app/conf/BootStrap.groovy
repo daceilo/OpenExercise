@@ -4,6 +4,10 @@ import org.codehaus.groovy.grails.commons.ApplicationHolder
 import org.openexercise.ExerciseType
 import org.openexercise.Exercise
 import org.openexercise.Image
+import java.awt.image.BufferedImage
+import javax.imageio.ImageIO
+import org.imgscalr.Scalr
+
 
 class BootStrap {
 
@@ -14,7 +18,6 @@ class BootStrap {
 
                 //Add in the appropriate exercises
                 if (!ExerciseType.count()) {
-                    def fileToLoad = "resources/chest-press.gif"
 
                     // Create exercise type
                     def typeOne = new ExerciseType(name: "Cardio", description: "Cardio Exercises").save(flush: true,
@@ -37,31 +40,77 @@ class BootStrap {
                             exerciseType: typeOne).save(flush: true, failOnError: true)
 
                     // Add in chest press gif
-                    def file = IOUtils.toByteArray(ApplicationHolder.application.parentContext.getResource
-                    ("classpath:$fileToLoad").inputStream)
-                    def chestPressGif = new Image(data: file, fileName: "chest-press.gif",
-                            size: file.size(), type: "gif", exercise: exerciseTwo).save(flush: true,
+                    def file = IOUtils.toByteArray(ApplicationHolder.application.parentContext.getResource("classpath:resources/chest-press.jpg").inputStream)
+
+                    // Create the thumbnail and convert back to bytearray
+                    BufferedImage thumbnail = Scalr.resize(ImageIO.read(new ByteArrayInputStream(file)),
+                            99, 99, null);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    ImageIO.write(thumbnail, "jpg", baos);
+                    baos.flush();
+                    def thumbnailArray = baos.toByteArray();
+                    baos.close();
+
+                    def chestPressGif = new Image(data: file, fileName: "chest-press.jpg",
+                            size: file.size(), type: "jpg", exercise: exerciseTwo).save(flush: true,
+                            failOnError: true)
+                    def chestPressThumbnail = new Image(
+                            data: thumbnailArray, fileName: "chest-press-thumbnail.jpg",
+                            size: thumbnailArray.size(), type: "jpg", exercise: exerciseTwo).save(flush: true,
                             failOnError: true)
 
                     exerciseTwo.image = chestPressGif
+                    exerciseTwo.thumbnail = chestPressThumbnail
                     exerciseTwo.save(flush: true, failOnError: true)
 
                     // Add in running jpg
-                    file = IOUtils.toByteArray(ApplicationHolder.application.parentContext.getResource
-                    ("classpath:resources/running.jpg").inputStream)
+                    file = IOUtils.toByteArray(ApplicationHolder.application.parentContext.getResource("classpath:resources/running.jpg").inputStream)
+
+                    // Create the thumbnail and convert back to bytearray
+                    thumbnail = Scalr.resize(ImageIO.read(new ByteArrayInputStream(file)),
+                            99, 99, null);
+                    baos = new ByteArrayOutputStream();
+                    ImageIO.write(thumbnail, "jpg", baos);
+                    baos.flush();
+                    thumbnailArray = baos.toByteArray();
+                    baos.close();
+
                     def runningJpg = new Image(data: file, fileName: "running.jpg",
                             size: file.size(), type: "jpg", exercise: exerciseOne).save(flush: true,
                             failOnError: true)
+
+                    def runningThumbnail = new Image(
+                            data: thumbnailArray, fileName: "running-thumbnail.jpg",
+                            size: thumbnailArray.size(), type: "jpg", exercise: exerciseOne).save(flush: true,
+                            failOnError: true)
+
                     exerciseOne.image = runningJpg
+                    exerciseOne.thumbnail = runningThumbnail
                     exerciseOne.save(flush: true, failOnError: true)
 
                     // Add in jump rope jpg
-                    file = IOUtils.toByteArray(ApplicationHolder.application.parentContext.getResource
-                    ("classpath:resources/jumprope.jpg").inputStream)
+                    file = IOUtils.toByteArray(ApplicationHolder.application.parentContext.getResource("classpath:resources/jumprope.jpg").inputStream)
+
+                    // Create the thumbnail and convert back to bytearray
+                    thumbnail = Scalr.resize(ImageIO.read(new ByteArrayInputStream(file)),
+                            99, 99, null);
+                    baos = new ByteArrayOutputStream();
+                    ImageIO.write(thumbnail, "jpg", baos);
+                    baos.flush();
+                    thumbnailArray = baos.toByteArray();
+                    baos.close();
+
                     def jumpRopeJpg = new Image(data: file, fileName: "jumprope.jpg",
                             size: file.size(), type: "jpg", exercise: exerciseThree).save(flush: true,
                             failOnError: true)
+
+                    def jumpRopeThumbnail = new Image(
+                            data: thumbnailArray, fileName: "jumprope-thumbnail.jpg",
+                            size: thumbnailArray.size(), type: "jpg", exercise: exerciseThree).save(flush: true,
+                            failOnError: true)
+
                     exerciseThree.image = jumpRopeJpg
+                    exerciseThree.thumbnail = jumpRopeThumbnail
                     exerciseThree.save(flush: true, failOnError: true)
 
                     typeOne.addToExercicses(exerciseOne).save(flush: true, failOnError: true)

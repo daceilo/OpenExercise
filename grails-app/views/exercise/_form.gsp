@@ -34,6 +34,14 @@
 	<g:select id="image" name="image.id" from="${org.openexercise.Image.list()}" optionKey="id" value="${exerciseInstance?.image?.id}" class="many-to-one" noSelection="['null': '']"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: exerciseInstance, field: 'thumbnail', 'error')} ">
+	<label for="thumbnail">
+		<g:message code="exercise.thumbnail.label" default="Thumbnail" />
+		
+	</label>
+	<g:select id="thumbnail" name="thumbnail.id" from="${org.openexercise.Image.list()}" optionKey="id" value="${exerciseInstance?.thumbnail?.id}" class="many-to-one" noSelection="['null': '']"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: exerciseInstance, field: 'exerciseType', 'error')} required">
 	<label for="exerciseType">
 		<g:message code="exercise.exerciseType.label" default="Exercise Type" />

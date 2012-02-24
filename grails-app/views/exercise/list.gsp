@@ -72,7 +72,7 @@
                     <div id="picture" class="ui-widget-content ui-corner-all">
                         <g:link action="show"
                                 id="${exerciseInstance.id}"><img class="Photo" src="${createLink(controller:'image',
-                                action:'displayImage', id:exerciseInstance.image?.id)}" /></g:link>
+                                action:'displayImage', id:exerciseInstance.thumbnail?.id)}" /></g:link>
                     </div>
 
                     <div id="smallname" class="ui-widget-content ui-corner-all">

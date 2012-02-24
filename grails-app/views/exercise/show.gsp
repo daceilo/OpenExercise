@@ -59,6 +59,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${exerciseInstance?.thumbnail}">
+				<li class="fieldcontain">
+					<span id="thumbnail-label" class="property-label"><g:message code="exercise.thumbnail.label" default="Thumbnail" /></span>
+					
+						<span class="property-value" aria-labelledby="thumbnail-label"><g:link controller="image" action="show" id="${exerciseInstance?.thumbnail?.id}">${exerciseInstance?.thumbnail?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${exerciseInstance?.exerciseType}">
 				<li class="fieldcontain">
 					<span id="exerciseType-label" class="property-label"><g:message code="exercise.exerciseType.label" default="Exercise Type" /></span>
