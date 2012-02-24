@@ -17,4 +17,8 @@ class Exercise {
         image nullable: true, blank: false
         thumbnail nullable: true, blank: false
     }
+    
+    String toString() {
+        name
+    }
 }

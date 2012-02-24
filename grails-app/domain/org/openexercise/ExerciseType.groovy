@@ -10,4 +10,8 @@ class ExerciseType {
         name nullable: false, blank: false
         description nullable: true, blank: true
     }
+    
+    String toString() {
+        name
+    }
 }
