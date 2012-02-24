@@ -17,6 +17,7 @@
         margin-bottom: 10px;
         margin-left: 10px;
     }
+
     </style>
 
 </head>
@@ -40,6 +41,10 @@
             revert: true,
             containment: 'document'
         });
+    });
+
+    $(function() {
+        $( "input:submit", ".buttonrow" ).button();
     });
 </script>
 <!-- End jQuery stuff -->
@@ -77,6 +82,9 @@
 
                     <div id="smallname" class="ui-widget-content ui-corner-all">
                         ${fieldValue(bean: exerciseInstance, field: "name")}
+                    </div>
+                    <div id="buttonrow" class="buttonrow">
+                        <input class="buttonrow" type="submit" value="Add to program"/>
                     </div>
                 </div>
             </g:each>

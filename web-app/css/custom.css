@@ -26,6 +26,18 @@
     vertical-align: middle;
 }
 
+#buttonrow {
+    width: 400px;
+    height: 37px;
+    float: left;
+    margin-bottom: 10px;
+    vertical-align: middle;
+}
+
+.input.buttonrow {
+
+}
+
 #picture {
     width: 100px;
     height: 100px;
