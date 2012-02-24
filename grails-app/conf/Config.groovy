@@ -66,7 +66,7 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
+        grails.serverURL = "http://www.openfitness.org"
     }
 }
 
@@ -90,4 +90,11 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+}
+
+grails.resources.modules = {
+    core {
+        dependsOn 'jquery, jquery-ui'
+        resource url:'/css/custom.css'
+    }
 }

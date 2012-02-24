@@ -1,58 +1,42 @@
-<%@ page import="org.openexercise.Exercise" %>
+<%@ page import="org.openexercise.ExerciseType; org.openexercise.Exercise" %>
 <!doctype html>
 <html>
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'exercise.label', default: 'Exercise')}"/>
     <title><g:message code="default.list.label" args="[entityName]"/></title>
+    <r:require module="core"/>
 
+    <!-- Specific style just for the accordion -->
     <style>
-
-    #effect {
-        width: 515px;
-        height: 260px;
+    #accordion {
+        width: 600px;
         padding: 0.4em;
         float: left;
         background: #fff;
         margin-bottom: 10px;
         margin-left: 10px;
     }
-
-    #picture {
-        width: 100px;
-        height: 100px;
-        float: left;
-        margin-right: 10px;
-        margin-bottom: 10px;
-        background: #f3f3ff;
-    }
-
-    #description {
-        width: 400px;
-        height: 100px;
-        float: left;
-        margin-bottom: 10px;
-        background: #f3f3ff;
-    }
-
-    #instructions {
-        width: 512px;
-        height: 100px;
-        float: left;
-        background: #f3f3ff;
-    }
-
-    #effect h3 {
-        margin: 0;
-        margin-bottom: 10px;
-        padding: 0.4em;
-        text-align: center;
-    }
     </style>
 
 </head>
 
 <body>
+
+<!-- jQuery stuff here -->
+<script>
+    $(function () {
+        $("#accordion").accordion({
+            collapsible:true,
+            active:false,
+            event:"mouseover",
+            autoHeight:false,
+            navigation:true
+        });
+    });
+</script>
+<!-- End jQuery stuff -->
+
 <a href="#list-exercise" class="skip" tabindex="-1"><g:message code="default.link.skip.label"
                                                                default="Skip to content&hellip;"/></a>
 
@@ -71,25 +55,44 @@
     </g:if>
 </div>
 
-<g:each in="${exerciseInstanceList}" status="i" var="exerciseInstance">
+<div id="accordion">
+    <g:each in="${ExerciseType.list()}" status="c" var="exerciseTypeInstance">
+        <h3><a href="#">${fieldValue(bean: exerciseTypeInstance, field: "name")}</a></h3>
+
+        <div>
+            <g:each in="${Exercise.findAllByExerciseType(exerciseTypeInstance)}" status="i" var="exerciseInstance">
+                <div id="smalleffect" class="ui-widget-content ui-corner-all">
+                    <div id="picture" class="ui-widget-content ui-corner-all">
+                        <g:link action="show"
+                                id="${exerciseInstance.id}">Picture</g:link>
+                    </div>
+
+                    <div id="smallname" class="ui-widget-content ui-corner-all">
+                        ${fieldValue(bean: exerciseInstance, field: "name")}
+                    </div>
+                </div>
+            </g:each>
+        </div>
+    </g:each>
+</div>
+
+
+<!-- TO BE USED IN SHOW
     <div id="effect" class="ui-widget-content ui-corner-all">
-        <h3 class="ui-widget-header ui-corner-all"><g:link action="show"
-                                                           id="${exerciseInstance.id}">${fieldValue(bean: exerciseInstance, field: "name")}</g:link></h3>
+        <h3 class="ui-widget-header ui-corner-all">Name</h3>
 
         <div id="picture" class="ui-widget-content ui-corner-all">
             Picture
         </div>
 
         <div id="description" class="ui-widget-content ui-corner-all">
-            ${fieldValue(bean: exerciseInstance, field: "description")}
+            Description
         </div>
 
         <div id="instructions" class="ui-widget-content ui-corner-all">
-            ${fieldValue(bean: exerciseInstance, field: "instructions") ? fieldValue(bean: exerciseInstance, field:
-                    "instructions"): "None entered"}
+            Instructions
         </div>
     </div>
-</g:each>
-
+-->
 </body>
 </html>
