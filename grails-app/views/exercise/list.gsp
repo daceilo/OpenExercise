@@ -10,7 +10,7 @@
     <!-- Specific style just for the accordion -->
     <style>
     #accordion {
-        width: 600px;
+        width: 590px;
         padding: 0.4em;
         float: left;
         background: #fff;
@@ -30,7 +30,6 @@
         $("#accordion").accordion({
             collapsible:true,
             active:false,
-            event:"mouseover",
             autoHeight:false,
             navigation:true
         });
