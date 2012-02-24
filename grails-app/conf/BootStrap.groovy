@@ -17,6 +17,7 @@ class BootStrap {
             case Environment.DEVELOPMENT:
 
                 //Add in the appropriate exercises
+                // TODO simplify the bootstrap, this is crazy messy.
                 if (!ExerciseType.count()) {
 
                     // Create exercise type
