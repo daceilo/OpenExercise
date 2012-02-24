@@ -50,6 +50,24 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${exerciseInstance?.image}">
+				<li class="fieldcontain">
+					<span id="image-label" class="property-label"><g:message code="exercise.image.label" default="Image" /></span>
+					
+						<span class="property-value" aria-labelledby="image-label"><g:link controller="image" action="show" id="${exerciseInstance?.image?.id}">${exerciseInstance?.image?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${exerciseInstance?.exerciseType}">
+				<li class="fieldcontain">
+					<span id="exerciseType-label" class="property-label"><g:message code="exercise.exerciseType.label" default="Exercise Type" /></span>
+					
+						<span class="property-value" aria-labelledby="exerciseType-label"><g:link controller="exerciseType" action="show" id="${exerciseInstance?.exerciseType?.id}">${exerciseInstance?.exerciseType?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

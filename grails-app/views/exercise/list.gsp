@@ -34,6 +34,13 @@
             navigation:true
         });
     });
+
+    $(function() {
+        $( ".candrag" ).draggable({
+            revert: true,
+            containment: 'document'
+        });
+    });
 </script>
 <!-- End jQuery stuff -->
 
@@ -61,10 +68,11 @@
 
         <div>
             <g:each in="${Exercise.findAllByExerciseType(exerciseTypeInstance)}" status="i" var="exerciseInstance">
-                <div id="smalleffect" class="ui-widget-content ui-corner-all">
+                <div id="smalleffect" class="ui-widget-content ui-corner-all candrag">
                     <div id="picture" class="ui-widget-content ui-corner-all">
                         <g:link action="show"
-                                id="${exerciseInstance.id}">Picture</g:link>
+                                id="${exerciseInstance.id}"><img class="Photo" src="${createLink(controller:'image',
+                                action:'displayImage', id:exerciseInstance.image?.id)}" /></g:link>
                     </div>
 
                     <div id="smallname" class="ui-widget-content ui-corner-all">
