@@ -44,12 +44,19 @@
         $("#program").tabs();
 
         $(".can-drop").droppable({
-            tolerance: 'touch',
+            tolerance:'touch',
             drop:function (event, ui) {
+                snapDropped(this, ui.helper)
                 $(this).addClass("ui-state-highlight").find("p").html("Dropped!");
             }
         });
     });
+
+    function snapDropped(droppedOn, droppedElement)
+    {
+        $(droppedElement).find("#buttonrow").remove();
+        $(droppedOn).appendChild($(droppedElement).html());
+    }
 </script>
 <!-- End jQuery stuff -->
 
@@ -112,7 +119,7 @@
         </ul>
 
         <div id="monday" class="can-drop">
-            <div class="ui-widget-content ui-corner-all can-drop program-tab">
+            <div id="monday-drop" class="ui-widget-content ui-corner-all can-drop program-tab">
                 <p>Drop exercises here</p>
             </div>
         </div>
@@ -157,21 +164,7 @@
 
 
 <!-- TO BE USED IN SHOW
-    <div id="effect" class="ui-widget-content ui-corner-all">
-        <h3 class="ui-widget-header ui-corner-all">Name</h3>
 
-        <div id="picture" class="ui-widget-content ui-corner-all">
-            Picture
-        </div>
-
-        <div id="description" class="ui-widget-content ui-corner-all">
-            Description
-        </div>
-
-        <div id="instructions" class="ui-widget-content ui-corner-all">
-            Instructions
-        </div>
-    </div>
 -->
 </body>
 </html>

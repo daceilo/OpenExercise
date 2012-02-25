@@ -6,8 +6,8 @@ body {
     width: 515px;
     height: 260px;
     padding: 0.4em;
-    float: left;
     background: #fff;
+    margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
 }
