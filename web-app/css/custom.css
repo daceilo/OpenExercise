@@ -1,3 +1,7 @@
+body {
+    font-size: x-small;
+}
+
 #effect {
     width: 515px;
     height: 260px;
@@ -9,7 +13,7 @@
 }
 
 #smalleffect {
-    width: 515px;
+    width: 300px;
     height: 103px;
     padding: 0.4em;
     float: left;
@@ -19,7 +23,7 @@
 }
 
 #smallname {
-    width: 400px;
+    width: 150px;
     height: 50px;
     float: left;
     margin-bottom: 10px;
@@ -27,11 +31,26 @@
 }
 
 #buttonrow {
-    width: 400px;
+    width: 300px;
     height: 37px;
-    float: left;
     margin-bottom: 10px;
     vertical-align: middle;
+}
+
+#program {
+    width: 400px;
+    height: 500px;
+    padding: 0.4em;
+    float: left;
+    background: #fff;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-size: xx-small;
+}
+
+.program-tab {
+    height: 455px
 }
 
 .input.buttonrow {

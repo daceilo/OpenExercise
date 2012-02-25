@@ -6,6 +6,8 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'exerciseType.label', default: 'ExerciseType')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+        <r:require module="core"/>
+
 	</head>
 	<body>
 		<a href="#list-exerciseType" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
