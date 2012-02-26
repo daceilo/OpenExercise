@@ -28,13 +28,15 @@
 <!-- jQuery stuff here -->
 <script>
     $(function () {
+        var $exercises = $( ".exercises" );
+
         $("#accordion").accordion({
             collapsible:true,
             active:false,
             autoHeight:false
         });
 
-        $(".can-drag").draggable({
+        $( "li", $exercises ).draggable({
             revert:'invalid',
             helper:'clone',
             appendTo:'body'
@@ -45,21 +47,43 @@
         $("#program").tabs();
 
         $(".can-drop").droppable({
+            accept: ".exercises > li",
             tolerance:'touch',
             drop:function (event, ui) {
-                snapDropped(this, ui.helper);
+
+
+                var $list = $("ul", $(this)).length ? $("ul", $(this)) :
+                        $("<ul class='exercises ui-helper-reset'/>").appendTo($(this)),
+                        $newDraggable = ui.draggable.clone();
+
+
+                ui.draggable.appendTo( $list );
+
+
             }
         });
+
+        function updateItem( $item, $to ) {
+            $item.fadeOut(function() {
+                var $list = $( "ul", $to ).length ?
+                        $( "ul", $to ) :
+                        $( "<ul class='gallery ui-helper-reset'/>" ).appendTo( $to );
+
+                $item.appendTo( $list )
+            });
+        }
+
+        function snapDropped(droppedOn, droppedElement) {
+            alert("Dropped " + droppedElement.id + " on " + droppedOn.id);
+            $droppedElement.find("#buttonrow").remove();
+
+            var $list = $("ul", $droppedOn).length ? $("ul", $droppedOn) : $("<ul class='exercises ui-helper-reset'/>").appendTo($droppedOn);
+            $droppedElement.appendTo($list);
+
+        }
     });
 
-    function snapDropped(droppedOn, droppedElement) {
-        var $list = $( "ul", $droppedOn ).length ?
-                $( "ul", $droppedOn ) :
-                $( "<ul class='exercises ui-helper-reset'/>" ).appendTo( $droppedOn );
-        $droppedElement.find("#buttonrow").remove();
-        $droppedElement.appendTo( $list );
 
-    }
 </script>
 <!-- End jQuery stuff -->
 
@@ -89,24 +113,18 @@
 
             <div>
                 <!-- TODO replace DIV with UL -->
-                <ul class="exercises">
+                <ul id="exercises-${exerciseTypeInstance.id}" class="exercises ui-helper-reset ui-helper-clearfix">
                     <g:each in="${Exercise.findAllByExerciseType(exerciseTypeInstance)}" status="i"
                             var="exerciseInstance">
-                        <li class="ui-widget-content ui-corner-all can-drag exercise-entry">
-                            <div id="picture" class="ui-widget-content ui-corner-all">
-                                <g:link action="show"
-                                        id="${exerciseInstance.id}"><img class="Photo"
-                                                                         src="${createLink(controller: 'image',
-                                                                                 action: 'displayImage', id: exerciseInstance.thumbnail?.id)}"/></g:link>
-                            </div>
-
-                            <div id="smallname" class="ui-widget-content ui-corner-all">
+                        <li class="ui-widget-content ui-corner-all exercise-entry">
+                            <g:link action="show"
+                                    id="${exerciseInstance.id}"><img class="Photo"
+                                                                     src="${createLink(controller: 'image',
+                                                                             action: 'displayImage', id: exerciseInstance.thumbnail?.id)}"/></g:link>
+                            <h4 class="ui-widget-content ui-corner-all">
                                 ${fieldValue(bean: exerciseInstance, field: "name")}
-                            </div>
+                            </h4>
 
-                            <div id="buttonrow" class="buttonrow">
-                                <input class="buttonrow" type="submit" value="Add to program"/>
-                            </div>
                         </li>
                     </g:each>
                 </ul>
@@ -127,16 +145,7 @@
 
         <g:each in="${daysOfWeek}">
             <div id="${it}">
-                <div id="${it}-drop" class="ui-widget-content ui-corner-all program-tab">
-                    <p>Drop exercises here - ${WordUtils.capitalizeFully(it)}</p>
-
-                    <div id="${it}-exercise1" class="ui-widget-content ui-corner-all can-drop exercise-entry">
-
-                    </div>
-
-                    <div id="${it}-exercise2" class="ui-widget-content ui-corner-all can-drop exercise-entry">
-
-                    </div>
+                <div id="${it}-drop" class="ui-widget-content ui-corner-all can-drop program-tab">
 
                 </div>
             </div>

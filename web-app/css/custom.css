@@ -49,6 +49,21 @@ body {
     margin-left: 10px;
 }
 
+.exercises li img {
+    width: 100px;
+    height: 100px;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.exercises li h4 {
+    width: 150px;
+    height: 50px;
+    float: left;
+    margin-bottom: 10px;
+}
+
 .exercise-entry {
     width: 300px;
     height: 103px;
