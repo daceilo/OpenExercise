@@ -1,4 +1,4 @@
-<%@ page import="org.openexercise.ExerciseType; org.openexercise.Exercise" %>
+<%@ page import="org.apache.commons.lang.WordUtils; org.openexercise.ExerciseType; org.openexercise.Exercise" %>
 <!doctype html>
 <html>
 <head>
@@ -34,7 +34,8 @@
             autoHeight:false
         });
 
-        $(".candrag").draggable({
+        $(".can-drag").draggable({
+            revert:'invalid',
             helper:'clone',
             appendTo:'body'
         });
@@ -46,16 +47,18 @@
         $(".can-drop").droppable({
             tolerance:'touch',
             drop:function (event, ui) {
-                snapDropped(this, ui.helper)
-                $(this).addClass("ui-state-highlight").find("p").html("Dropped!");
+                snapDropped(this, ui.helper);
             }
         });
     });
 
-    function snapDropped(droppedOn, droppedElement)
-    {
-        $(droppedElement).find("#buttonrow").remove();
-        $(droppedOn).appendChild($(droppedElement).html());
+    function snapDropped(droppedOn, droppedElement) {
+        var $list = $( "ul", $droppedOn ).length ?
+                $( "ul", $droppedOn ) :
+                $( "<ul class='exercises ui-helper-reset'/>" ).appendTo( $droppedOn );
+        $droppedElement.find("#buttonrow").remove();
+        $droppedElement.appendTo( $list );
+
     }
 </script>
 <!-- End jQuery stuff -->
@@ -78,87 +81,66 @@
     </g:if>
 </div>
 
+<!-- This is where we will put all the exercises for the programs, organized by exercise type -->
 <div id="container">
     <div id="accordion">
         <g:each in="${ExerciseType.list()}" status="c" var="exerciseTypeInstance">
             <h3><a href="#">${fieldValue(bean: exerciseTypeInstance, field: "name")}</a></h3>
 
             <div>
-                <g:each in="${Exercise.findAllByExerciseType(exerciseTypeInstance)}" status="i" var="exerciseInstance">
-                    <div id="smalleffect" class="ui-widget-content ui-corner-all candrag">
-                        <div id="picture" class="ui-widget-content ui-corner-all">
-                            <g:link action="show"
-                                    id="${exerciseInstance.id}"><img class="Photo"
-                                                                     src="${createLink(controller: 'image',
-                                                                             action: 'displayImage', id: exerciseInstance.thumbnail?.id)}"/></g:link>
-                        </div>
+                <!-- TODO replace DIV with UL -->
+                <ul class="exercises">
+                    <g:each in="${Exercise.findAllByExerciseType(exerciseTypeInstance)}" status="i"
+                            var="exerciseInstance">
+                        <li class="ui-widget-content ui-corner-all can-drag exercise-entry">
+                            <div id="picture" class="ui-widget-content ui-corner-all">
+                                <g:link action="show"
+                                        id="${exerciseInstance.id}"><img class="Photo"
+                                                                         src="${createLink(controller: 'image',
+                                                                                 action: 'displayImage', id: exerciseInstance.thumbnail?.id)}"/></g:link>
+                            </div>
 
-                        <div id="smallname" class="ui-widget-content ui-corner-all">
-                            ${fieldValue(bean: exerciseInstance, field: "name")}
-                        </div>
+                            <div id="smallname" class="ui-widget-content ui-corner-all">
+                                ${fieldValue(bean: exerciseInstance, field: "name")}
+                            </div>
 
-                        <div id="buttonrow" class="buttonrow">
-                            <input class="buttonrow" type="submit" value="Add to program"/>
-                        </div>
-                    </div>
-                </g:each>
+                            <div id="buttonrow" class="buttonrow">
+                                <input class="buttonrow" type="submit" value="Add to program"/>
+                            </div>
+                        </li>
+                    </g:each>
+                </ul>
             </div>
         </g:each>
     </div>
 
-    <!-- This is where exercises will be dropped -->
+    <!-- Build out Program where exercises can be dropped. Rather than doing this by hand, we will iterate over the days
+     of the week -->
+    <g:set var="daysOfWeek" scope="page"
+           value="${['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']}"/>
     <div id="program">
         <ul>
-            <li><a href="#monday">Monday</a></li>
-            <li><a href="#tuesday">Tuesday</a></li>
-            <li><a href="#wednesday">Wednesday</a></li>
-            <li><a href="#thursday">Thursday</a></li>
-            <li><a href="#friday">Friday</a></li>
-            <li><a href="#saturday">Saturday</a></li>
-            <li><a href="#sunday">Sunday</a></li>
+            <g:each in="${daysOfWeek}">
+                <li><a href="#${it}">${WordUtils.capitalizeFully(it)}</a></li>
+            </g:each>
         </ul>
 
-        <div id="monday" class="can-drop">
-            <div id="monday-drop" class="ui-widget-content ui-corner-all can-drop program-tab">
-                <p>Drop exercises here</p>
-            </div>
-        </div>
+        <g:each in="${daysOfWeek}">
+            <div id="${it}">
+                <div id="${it}-drop" class="ui-widget-content ui-corner-all program-tab">
+                    <p>Drop exercises here - ${WordUtils.capitalizeFully(it)}</p>
 
-        <div id="tuesday" class="can-drop">
-            <div class="ui-widget-content ui-corner-all can-drop program-tab">
-                <p>Drop exercises here</p>
-            </div>
-        </div>
+                    <div id="${it}-exercise1" class="ui-widget-content ui-corner-all can-drop exercise-entry">
 
-        <div id="wednesday" class="can-drop">
-            <div class="ui-widget-content ui-corner-all can-drop program-tab">
-                <p>Drop exercises here</p>
-            </div>
-        </div>
+                    </div>
 
-        <div id="thursday" class="can-drop">
-            <div class="ui-widget-content ui-corner-all can-drop program-tab">
-                <p>Drop exercises here</p>
-            </div>
-        </div>
+                    <div id="${it}-exercise2" class="ui-widget-content ui-corner-all can-drop exercise-entry">
 
-        <div id="friday" class="can-drop">
-            <div class="ui-widget-content ui-corner-all can-drop program-tab">
-                <p>Drop exercises here</p>
-            </div>
-        </div>
+                    </div>
 
-        <div id="saturday" class="can-drop">
-            <div class="ui-widget-content ui-corner-all can-drop program-tab">
-                <p>Drop exercises here</p>
+                </div>
             </div>
-        </div>
-
-        <div id="sunday" class="can-drop">
-            <div class="ui-widget-content ui-corner-all can-drop program-tab">
-                <p>Drop exercises here</p>
-            </div>
-        </div>
+        </g:each>
     </div>
 </div>
 
