@@ -28,7 +28,7 @@
 <!-- jQuery stuff here -->
 <script>
     $(function () {
-        var $exercises = $( ".exercises" );
+        var $exercises = $(".exercises");
 
         $("#accordion").accordion({
             collapsible:true,
@@ -36,7 +36,7 @@
             autoHeight:false
         });
 
-        $( "li", $exercises ).draggable({
+        $("li", $exercises).draggable({
             revert:'invalid',
             helper:'clone',
             appendTo:'body'
@@ -47,38 +47,17 @@
         $("#program").tabs();
 
         $(".can-drop").droppable({
-            accept: ".exercises > li",
+            accept:".exercises > li",
             tolerance:'touch',
             drop:function (event, ui) {
 
 
-                var $list = $("ul", $(this)).length ? $("ul", $(this)) :
-                        $("<ul class='exercises ui-helper-reset'/>").appendTo($(this)),
-                        $newDraggable = ui.draggable.clone();
+                var $list = $("ul", $(this)).length ? $("ul", $(this)) : $("<ul class='exercises ui-helper-reset'/>").appendTo($(this)), $newDraggable = ui.draggable.clone();
 
-                $newDraggable.appendTo( $list );
+                $newDraggable.appendTo($list);
 
             }
         });
-
-        function updateItem( $item, $to ) {
-            $item.fadeOut(function() {
-                var $list = $( "ul", $to ).length ?
-                        $( "ul", $to ) :
-                        $( "<ul class='gallery ui-helper-reset'/>" ).appendTo( $to );
-
-                $item.appendTo( $list )
-            });
-        }
-
-        function snapDropped(droppedOn, droppedElement) {
-            alert("Dropped " + droppedElement.id + " on " + droppedOn.id);
-            $droppedElement.find("#buttonrow").remove();
-
-            var $list = $("ul", $droppedOn).length ? $("ul", $droppedOn) : $("<ul class='exercises ui-helper-reset'/>").appendTo($droppedOn);
-            $droppedElement.appendTo($list);
-
-        }
     });
 
 
