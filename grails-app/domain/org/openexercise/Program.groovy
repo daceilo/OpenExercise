@@ -11,6 +11,13 @@ class Program {
     ProgramDay sunday = new ProgramDay(dayOfWeek: "Sunday")
 
     static constraints = {
-
+        monday nullable: false, blank: false
+        tuesday nullable: false, blank: false
+        wednesday nullable: false, blank: false
+        thursday nullable: false, blank: false
+        friday nullable: false, blank: false
+        saturday nullable: false, blank: false
+        sunday nullable: false, blank: false
     }
 }
+

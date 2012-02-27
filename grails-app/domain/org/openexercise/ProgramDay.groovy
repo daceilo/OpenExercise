@@ -10,4 +10,8 @@ class ProgramDay {
         dayOfWeek nullable: false, blank: false
         exerciseBundles nullable: true, blank: true
     }
+    
+    String toString() {
+        dayOfWeek
+    }
 }

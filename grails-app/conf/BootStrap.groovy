@@ -7,6 +7,8 @@ import org.openexercise.Image
 import java.awt.image.BufferedImage
 import javax.imageio.ImageIO
 import org.imgscalr.Scalr
+import org.openexercise.Program
+import org.openexercise.ExerciseBundle
 
 
 class BootStrap {
@@ -117,6 +119,31 @@ class BootStrap {
                     typeOne.addToExercicses(exerciseOne).save(flush: true, failOnError: true)
                     typeTwo.addToExercicses(exerciseTwo).save(flush: true, failOnError: true)
                     typeOne.addToExercicses(exerciseThree).save(flush: true, failOnError: true)
+                    
+                    //TODO create program
+                    def programOne = new Program()
+                    programOne.monday.program = programOne
+                    programOne.tuesday.program = programOne
+                    programOne.wednesday.program = programOne
+                    programOne.thursday.program = programOne
+                    programOne.friday.program = programOne
+                    programOne.saturday.program = programOne
+                    programOne.sunday.program = programOne
+
+                    programOne.save(flush: true, failOnError: true)
+
+                    def exerciseBundleOne = new ExerciseBundle(exercise: exerciseOne, repetitions: 3,
+                            durationInSeconds: null, programDay: programOne.monday)
+                    programOne.monday.addToExerciseBundles(exerciseBundleOne).save(flush: true, failOnError: true)
+
+                    def exerciseBundleTwo = new ExerciseBundle(exercise: exerciseOne, repetitions: 3,
+                            durationInSeconds: null, programDay: programOne.wednesday)
+                    programOne.wednesday.addToExerciseBundles(exerciseBundleTwo).save(flush: true, failOnError: true)
+
+                    def exerciseBundleThree = new ExerciseBundle(exercise: exerciseOne, repetitions: null,
+                            durationInSeconds: 3600, programDay: programOne.saturday)
+                    programOne.saturday.addToExerciseBundles(exerciseBundleThree).save(flush: true,
+                            failOnError: true)
                 }
                 break
         }
