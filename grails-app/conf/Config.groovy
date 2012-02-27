@@ -96,5 +96,6 @@ grails.resources.modules = {
     core {
         dependsOn 'jquery, jquery-ui'
         resource url:'/css/custom.css'
+        resource url:'/js/custom.js'
     }
 }

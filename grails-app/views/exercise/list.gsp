@@ -98,7 +98,6 @@
             <h3><a href="#">${fieldValue(bean: exerciseTypeInstance, field: "name")}</a></h3>
 
             <div>
-                <!-- TODO replace DIV with UL -->
                 <ul id="exercises-${exerciseTypeInstance.id}" class="exercises ui-helper-reset ui-helper-clearfix">
                     <g:each in="${Exercise.findAllByExerciseType(exerciseTypeInstance)}" status="i"
                             var="exerciseInstance">
