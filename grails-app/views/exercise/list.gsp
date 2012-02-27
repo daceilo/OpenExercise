@@ -56,9 +56,7 @@
                         $("<ul class='exercises ui-helper-reset'/>").appendTo($(this)),
                         $newDraggable = ui.draggable.clone();
 
-
-                ui.draggable.appendTo( $list );
-
+                $newDraggable.appendTo( $list );
 
             }
         });
