@@ -7,7 +7,7 @@
  */
 
 $(function () {
-    var $exercises = $(".exercises");
+    var $exercises = $(".draggable");
     var trash_icon =
             "<a href='link/to/trash/script/when/we/have/js/off' title='Remove from program' class='ui-icon ui-icon-trash'>Remove</a>";
 

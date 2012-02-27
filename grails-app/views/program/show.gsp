@@ -1,4 +1,4 @@
-<%@ page import="org.apache.commons.lang.WordUtils; org.openexercise.Program" %>
+<%@ page import="org.openexercise.ExerciseType; org.openexercise.Exercise; org.apache.commons.lang.WordUtils; org.openexercise.Program" %>
 <!doctype html>
 <html>
 <head>
@@ -25,7 +25,6 @@
 <g:if test="${flash.message}">
     <div class="message" role="status">${flash.message}</div>
 </g:if>
-
 
 <g:set var="week" scope="page"
        value="${['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']}"/>
@@ -60,18 +59,16 @@
     </g:each>
 </div>
 
-<div style="clear: both;">
-    <g:form>
-        <fieldset class="buttons">
-            <g:hiddenField name="id" value="${programInstance?.id}"/>
-            <g:link class="edit" action="edit" id="${programInstance?.id}"><g:message code="default.button.edit.label"
-                                                                                      default="Edit"/></g:link>
-            <g:actionSubmit class="delete" action="delete"
-                            value="${message(code: 'default.button.delete.label', default: 'Delete')}"
-                            onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
-        </fieldset>
-    </g:form>
-</div>
+<g:form style="clear: both;">
+    <fieldset class="buttons">
+        <g:hiddenField name="id" value="${programInstance?.id}"/>
+        <g:link class="edit" action="edit" id="${programInstance?.id}"><g:message code="default.button.edit.label"
+                                                                                  default="Edit"/></g:link>
+        <g:actionSubmit class="delete" action="delete"
+                        value="${message(code: 'default.button.delete.label', default: 'Delete')}"
+                        onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
+    </fieldset>
+</g:form>
 
 </body>
 </html>

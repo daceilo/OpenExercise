@@ -7,20 +7,6 @@
     <title><g:message code="default.list.label" args="[entityName]"/></title>
     <r:require module="core"/>
 
-    <!-- Specific style just for the accordion -->
-    <style>
-
-    #accordion {
-        width: 400px;
-        padding: 0.4em;
-        float: left;
-        background: #fff;
-        margin-bottom: 10px;
-        margin-left: 10px;
-    }
-
-    </style>
-
 </head>
 
 <body>
@@ -28,7 +14,7 @@
 <!-- jQuery stuff here -->
 <script>
     $(function () {
-        var $exercises = $(".exercises");
+        var $exercises = $(".draggable");
         var trash_icon =
                 "<a href='link/to/trash/script/when/we/have/js/off' title='Remove from program' class='ui-icon ui-icon-trash'>Remove</a>";
 
@@ -98,7 +84,8 @@
             <h3><a href="#">${fieldValue(bean: exerciseTypeInstance, field: "name")}</a></h3>
 
             <div>
-                <ul id="exercises-${exerciseTypeInstance.id}" class="exercises ui-helper-reset ui-helper-clearfix">
+                <ul id="exercises-${exerciseTypeInstance.id}"
+                    class="exercises draggable ui-helper-reset ui-helper-clearfix">
                     <g:each in="${Exercise.findAllByExerciseType(exerciseTypeInstance)}" status="i"
                             var="exerciseInstance">
                         <li class="ui-widget-content ui-corner-all exercise-entry">
