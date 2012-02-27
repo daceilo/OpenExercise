@@ -75,7 +75,8 @@ body {
 }
 
 .program-tab {
-    height: 455px
+    height: 455px;
+    overflow: scroll;
 }
 
 .input.buttonrow {

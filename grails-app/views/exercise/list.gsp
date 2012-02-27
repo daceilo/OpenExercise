@@ -29,6 +29,8 @@
 <script>
     $(function () {
         var $exercises = $(".exercises");
+        var trash_icon =
+                "<a href='link/to/trash/script/when/we/have/js/off' title='Remove from program' class='ui-icon ui-icon-trash'>Remove</a>";
 
         $("#accordion").accordion({
             collapsible:true,
@@ -42,8 +44,6 @@
             appendTo:'body'
         });
 
-        $("input:submit", ".buttonrow").button();
-
         $("#program").tabs();
 
         $(".can-drop").droppable({
@@ -52,16 +52,25 @@
             drop:function (event, ui) {
 
 
-                var $list = $("ul", $(this)).length ? $("ul", $(this)) : $("<ul class='exercises ui-helper-reset'/>").appendTo($(this)), $newDraggable = ui.draggable.clone();
+                var $list = $("ul", $(this)).length ?
+                        $("ul", $(this)) :
+                        $("<ul class='exercises ui-helper-reset'/>").appendTo($(this)),
+                        $newDraggable = ui.draggable.clone();
 
-                $newDraggable.appendTo($list);
+                $newDraggable.append(trash_icon).appendTo($list);
 
             }
         });
+
+        $("button").click(function () {
+            $("div:hidden").show("fast");
+            $("#new-program").hide("fast");
+        });
+
     });
 
-
 </script>
+<!-- TODO make trash icon work -->
 <!-- End jQuery stuff -->
 
 <a href="#list-exercise" class="skip" tabindex="-1"><g:message code="default.link.skip.label"
@@ -108,12 +117,13 @@
             </div>
         </g:each>
     </div>
+    <button id="new-program">Create new program</button>
 
     <!-- Build out Program where exercises can be dropped. Rather than doing this by hand, we will iterate over the days
      of the week -->
     <g:set var="daysOfWeek" scope="page"
            value="${['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']}"/>
-    <div id="program">
+    <div id="program" style="display: none;">
         <ul>
             <g:each in="${daysOfWeek}">
                 <li><a href="#${it}">${WordUtils.capitalizeFully(it)}</a></li>
@@ -129,10 +139,5 @@
         </g:each>
     </div>
 </div>
-
-
-<!-- TO BE USED IN SHOW
-
--->
 </body>
 </html>
