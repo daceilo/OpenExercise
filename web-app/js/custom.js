@@ -51,6 +51,15 @@ $(function () {
     });
 
     function addToProgramDay(program, day, toAdd) {
-        alert("Going to add exercise " + toAdd + " to program " + program + " on day " + day)
+        $.ajax({
+                    url: "/OpenExercise/exerciseBundle/createFromExercise",
+                    type: "POST",
+                    dataType: "text",
+                    data: "program.id=" + program + "&programDay.id=" + day + "&exercise.id=" + toAdd,
+                    cache: false,
+                    async: true
+
+                });
+        alert("Done adding")
     }
 });
