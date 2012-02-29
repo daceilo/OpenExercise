@@ -36,8 +36,12 @@ $(function () {
                     $("<ul class='exercises ui-helper-reset'/>").appendTo($(this)),
                     $newDraggable = ui.draggable.clone();
 
+            $newDraggable.removeClass("ui-draggable");
+            $newDraggable.addClass("exercise-entry");
             $newDraggable.append(trash_icon).appendTo($list);
 
+            var $idArray = this.id.split("-", 2)
+            addToProgramDay($idArray[1], $idArray[0], ui.draggable.attr('id'));
         }
     });
 
@@ -46,4 +50,7 @@ $(function () {
         $("#new-program").hide("fast");
     });
 
+    function addToProgramDay(program, day, toAdd) {
+        alert("Going to add exercise " + toAdd + " to program " + program + " on day " + day)
+    }
 });

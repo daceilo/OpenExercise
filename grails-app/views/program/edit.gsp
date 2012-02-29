@@ -42,11 +42,12 @@
             <h3><a href="#">${fieldValue(bean: exerciseTypeInstance, field: "name")}</a></h3>
 
             <div>
-                <ul id="exercises-${exerciseTypeInstance.id}"
+                <ul id="exercisetype-${exerciseTypeInstance.id}"
                     class="exercises draggable ui-helper-reset ui-helper-clearfix">
                     <g:each in="${Exercise.findAllByExerciseType(exerciseTypeInstance)}" status="i"
                             var="exerciseInstance">
-                        <li class="ui-widget-content ui-corner-all exercise-entry">
+                        <li id="${exerciseInstance.id}"
+                            class="ui-widget-content ui-corner-all exercise-entry">
                             <g:link action="show"
                                     id="${exerciseInstance.id}"><img class="Photo"
                                                                      src="${createLink(controller: 'image',
@@ -72,11 +73,13 @@
 
         <g:each in="${week}">
             <div id="${it}">
-                <div id="${it}-drop" class="ui-widget-content ui-corner-all can-drop program-tab">
+                <div id="${programInstance."${it}".id}-${programInstance.id}"
+                     class="ui-widget-content ui-corner-all can-drop program-tab">
                     <ul id="exercises-${it}" class="exercises ui-helper-reset ui-helper-clearfix">
 
                         <g:each in="${programInstance."${it}".exerciseBundles}" status="i" var="exerciseBundleInstance">
-                            <li class="ui-widget-content ui-corner-all exercise-entry">
+                            <li id="exercisebundle-${exerciseBundleInstance.id}"
+                                class="ui-widget-content ui-corner-all exercise-entry">
                                 <g:link action="show"
                                         id="${exerciseBundleInstance.exercise.id}"><img class="Photo"
                                                                                         src="${createLink(controller: 'image',

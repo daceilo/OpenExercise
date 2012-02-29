@@ -18,6 +18,11 @@ class ExerciseBundleController {
     def create() {
         [exerciseBundleInstance: new ExerciseBundle(params)]
     }
+    
+    def createFromExercise() {
+        [exerciseBundleInstance: new ExerciseBundle(exercise: Exercise.get(params.exercise.id), repetitions: 0,
+                durationInSeconds: 0, programDay: ProgramDay.get(params.programDay.id))]
+    }
 
     def save() {
         def exerciseBundleInstance = new ExerciseBundle(params)
