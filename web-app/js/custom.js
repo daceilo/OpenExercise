@@ -60,6 +60,5 @@ $(function () {
                     async: true
 
                 });
-        alert("Done adding")
     }
 });

@@ -20,8 +20,14 @@ class ExerciseBundleController {
     }
     
     def createFromExercise() {
-        [exerciseBundleInstance: new ExerciseBundle(exercise: Exercise.get(params.exercise.id), repetitions: 0,
-                durationInSeconds: 0, programDay: ProgramDay.get(params.programDay.id))]
+        log.debug("Received: exercise.id = " + params.exercise.id + " programDay.id = " +
+                params.programDay.id + " program.id = " + params.program.id)
+
+        def newExerciseBundles = new ExerciseBundle(exercise: Exercise.get(params.exercise.id), repetitions: 0,
+                durationInSeconds: 0, programDay: ProgramDay.get(params.programDay.id)).save(flush: true,
+                failOnError: true)
+
+        return newExerciseBundles.id
     }
 
     def save() {
