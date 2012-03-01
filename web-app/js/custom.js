@@ -10,6 +10,10 @@ $(function () {
     var $exercises = $(".draggable");
     var trash_icon = '<a id="trash" href="#" title="Remove from program" class="ui-icon ui-icon-trash">Remove</a>';
 
+    $(document).ready(function() {
+        addClickable();
+    });
+
     $("#accordion").accordion({
         collapsible:true,
         active:false,
@@ -30,7 +34,7 @@ $(function () {
         drop:function (event, ui) {
 
 
-            var $list = $("ul", $(this)).length ? $("ul", $(this)) : $("<ul class='exercises ui-helper-reset'/>").appendTo($(this)), $newDraggable = ui.draggable.clone();
+            var $list = $("ul", $(this)).length ? $("ul", $(this)) : $("<ul class='exercises ui-helper-reset'/>").appendTo($(this)), $newDraggable = ui.draggable.clone(true);
 
             $newDraggable.removeClass("ui-draggable");
             $newDraggable.addClass("exercise-entry");
@@ -46,12 +50,15 @@ $(function () {
         $("#new-program").hide("fast");
     });
 
-    $( "a.ui-icon-trash" ).click(function( event ) {
-        var $item = $( this ).parent();
+    function addClickable() {
+        $("a.ui-icon-trash").click(function (event) {
+            var $item = $(this).parent();
 
-        deleteExerciseBundle( $item );
+            deleteExerciseBundle($item);
 
-    });
+        });
+    }
+
 
     function deleteExerciseBundle(id) {
         alert("Going to delete " + id.attr('id'));
@@ -59,10 +66,10 @@ $(function () {
             url:"/OpenExercise/exerciseBundle/delete",
             type:"POST",
             dataType:"text",
-            data:"id=" + id.attr('id').split("-",2)[1],
+            data:"id=" + id.attr('id').split("-", 2)[1],
             cache:false,
             async:true,
-            success: function(result) {
+            success:function (result) {
                 $("#" + id.attr('id')).remove();
             }
         });
@@ -76,9 +83,10 @@ $(function () {
             data:"program.id=" + program + "&programDay.id=" + day + "&exercise.id=" + toAdd,
             cache:false,
             async:true,
-            success: function(result) {
+            success:function (result) {
                 alert("toUpdate ID: " + toUpdate.attr('id') + " to exercisebundle-" + result);
                 toUpdate.attr('id', "exercisebundle-" + result);
+                addClickable();
                 alert("Is now ... " + toUpdate.attr('id'));
             }
         });
