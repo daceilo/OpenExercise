@@ -8,8 +8,7 @@
 
 $(function () {
     var $exercises = $(".draggable");
-    var trash_icon =
-            "<a href='link/to/trash/script/when/we/have/js/off' title='Remove from program' class='ui-icon ui-icon-trash'>Remove</a>";
+    var trash_icon = "<a href='#' title='Remove from program' class='ui-icon ui-icon-trash'>Remove</a>";
 
     $("#accordion").accordion({
         collapsible:true,
@@ -31,17 +30,14 @@ $(function () {
         drop:function (event, ui) {
 
 
-            var $list = $("ul", $(this)).length ?
-                    $("ul", $(this)) :
-                    $("<ul class='exercises ui-helper-reset'/>").appendTo($(this)),
-                    $newDraggable = ui.draggable.clone();
+            var $list = $("ul", $(this)).length ? $("ul", $(this)) : $("<ul class='exercises ui-helper-reset'/>").appendTo($(this)), $newDraggable = ui.draggable.clone();
 
             $newDraggable.removeClass("ui-draggable");
             $newDraggable.addClass("exercise-entry");
             $newDraggable.append(trash_icon).appendTo($list);
 
             var $idArray = this.id.split("-", 2)
-            addToProgramDay($idArray[1], $idArray[0], ui.draggable.attr('id'));
+            addToProgramDay($idArray[1], $idArray[0], ui.draggable.attr('id'), $newDraggable);
         }
     });
 
@@ -50,15 +46,39 @@ $(function () {
         $("#new-program").hide("fast");
     });
 
-    function addToProgramDay(program, day, toAdd) {
-        $.ajax({
-                    url: "/OpenExercise/exerciseBundle/createFromExercise",
-                    type: "POST",
-                    dataType: "text",
-                    data: "program.id=" + program + "&programDay.id=" + day + "&exercise.id=" + toAdd,
-                    cache: false,
-                    async: true
+    $( "a.ui-icon-trash" ).click(function( event ) {
+        var $item = $( this ).parent();
 
-                });
+        deleteExerciseBundle( $item );
+
+    });
+
+    function deleteExerciseBundle(id) {
+
+        $.ajax({
+            url:"/OpenExercise/exerciseBundle/delete",
+            type:"POST",
+            dataType:"text",
+            data:"id=" + id.attr('id').split("-",2)[1],
+            cache:false,
+            async:true,
+            success: function(result) {
+                $("#" + id.attr('id')).remove();
+            }
+        });
+    }
+
+    function addToProgramDay(program, day, toAdd, toUpdate) {
+        $.ajax({
+            url:"/OpenExercise/exerciseBundle/createFromExercise",
+            type:"POST",
+            dataType:"text",
+            data:"program.id=" + program + "&programDay.id=" + day + "&exercise.id=" + toAdd,
+            cache:false,
+            async:true,
+            success: function(result) {
+                toUpdate.attr('id') = "exercisebundle-" + result;
+            }
+        });
     }
 });

@@ -87,8 +87,8 @@
                                 <h4 class="ui-widget-content ui-corner-all">
                                     ${fieldValue(bean: exerciseBundleInstance.exercise, field: "name")}
                                 </h4>
-                                <g:link controller="exerciseBundle" action="delete"
-                                        id="${exerciseBundleInstance.id}" title='Remove from program' class='ui-icon ui-icon-trash'>Remove</g:link>
+                                <a id="trash" href="#" title='Remove from program'
+                                   class='ui-icon ui-icon-trash'>Remove</a>
                             </li>
                         </g:each>
 

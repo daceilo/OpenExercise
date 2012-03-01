@@ -27,7 +27,7 @@ class ExerciseBundleController {
                 durationInSeconds: 0, programDay: ProgramDay.get(params.programDay.id)).save(flush: true,
                 failOnError: true)
 
-        return newExerciseBundles.id
+        render newExerciseBundles.id
     }
 
     def save() {
