@@ -61,7 +61,6 @@ $(function () {
 
 
     function deleteExerciseBundle(id) {
-        alert("Going to delete " + id.attr('id'));
         $.ajax({
             url:"/OpenExercise/exerciseBundle/delete",
             type:"POST",
@@ -84,10 +83,8 @@ $(function () {
             cache:false,
             async:true,
             success:function (result) {
-                alert("toUpdate ID: " + toUpdate.attr('id') + " to exercisebundle-" + result);
                 toUpdate.attr('id', "exercisebundle-" + result);
                 addClickable();
-                alert("Is now ... " + toUpdate.attr('id'));
             }
         });
     }
