@@ -8,7 +8,7 @@
 
 $(function () {
     var $exercises = $(".draggable");
-    var trash_icon = "<a href='#' title='Remove from program' class='ui-icon ui-icon-trash'>Remove</a>";
+    var trash_icon = '<a id="trash" href="#" title="Remove from program" class="ui-icon ui-icon-trash">Remove</a>';
 
     $("#accordion").accordion({
         collapsible:true,
@@ -54,7 +54,7 @@ $(function () {
     });
 
     function deleteExerciseBundle(id) {
-
+        alert("Going to delete " + id.attr('id'));
         $.ajax({
             url:"/OpenExercise/exerciseBundle/delete",
             type:"POST",

@@ -48,7 +48,7 @@
                             var="exerciseInstance">
                         <li id="${exerciseInstance.id}"
                             class="ui-widget-content ui-corner-all exercise-entry">
-                            <g:link action="show"
+                            <g:link action="show" controller="exercise"
                                     id="${exerciseInstance.id}"><img class="Photo"
                                                                      src="${createLink(controller: 'image',
                                                                              action: 'displayImage', id: exerciseInstance.thumbnail?.id)}"/></g:link>
@@ -80,7 +80,7 @@
                         <g:each in="${programInstance."${it}".exerciseBundles}" status="i" var="exerciseBundleInstance">
                             <li id="exercisebundle-${exerciseBundleInstance.id}"
                                 class="ui-widget-content ui-corner-all exercise-entry">
-                                <g:link action="show"
+                                <g:link action="show" controller="exercise"
                                         id="${exerciseBundleInstance.exercise.id}"><img class="Photo"
                                                                                         src="${createLink(controller: 'image',
                                                                                                 action: 'displayImage', id: exerciseBundleInstance.exercise.thumbnail?.id)}"/></g:link>
