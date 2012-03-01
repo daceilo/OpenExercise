@@ -77,7 +77,9 @@ $(function () {
             cache:false,
             async:true,
             success: function(result) {
-                toUpdate.attr('id') = "exercisebundle-" + result;
+                alert("toUpdate ID: " + toUpdate.attr('id') + " to exercisebundle-" + result);
+                toUpdate.attr('id', "exercisebundle-" + result);
+                alert("Is now ... " + toUpdate.attr('id'));
             }
         });
     }
