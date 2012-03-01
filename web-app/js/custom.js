@@ -10,7 +10,7 @@ $(function () {
     var $exercises = $(".draggable");
     var trash_icon = '<a id="trash" href="#" title="Remove from program" class="ui-icon ui-icon-trash">Remove</a>';
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         addClickable();
     });
 
@@ -20,11 +20,6 @@ $(function () {
         autoHeight:false
     });
 
-    $("li", $exercises).draggable({
-        revert:'invalid',
-        helper:'clone',
-        appendTo:'body'
-    });
 
     $("#program").tabs();
 
@@ -34,7 +29,7 @@ $(function () {
         drop:function (event, ui) {
 
 
-            var $list = $("ul", $(this)).length ? $("ul", $(this)) : $("<ul class='exercises ui-helper-reset'/>").appendTo($(this)), $newDraggable = ui.draggable.clone(true);
+            var $list = $("ul", $(this)).length ? $("ul", $(this)) : $("<ul class='exercises ui-helper-reset'/>").appendTo($(this)), $newDraggable = ui.draggable.clone();
 
             $newDraggable.removeClass("ui-draggable");
             $newDraggable.addClass("exercise-entry");
@@ -50,15 +45,20 @@ $(function () {
         $("#new-program").hide("fast");
     });
 
+    $("li", $exercises).draggable({
+        revert:'invalid',
+        helper:'clone',
+        appendTo:'body'
+    });
+
     function addClickable() {
-        $("a.ui-icon-trash").click(function (event) {
-            var $item = $(this).parent();
+        $("a.ui-icon-trash").unbind('click.addit').bind('click.addit', function (event) {
+                    var $item = $(this).parent();
 
-            deleteExerciseBundle($item);
+                    deleteExerciseBundle($item);
 
-        });
+                });
     }
-
 
     function deleteExerciseBundle(id) {
         $.ajax({
