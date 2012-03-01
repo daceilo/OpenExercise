@@ -42,7 +42,7 @@
 
                     <g:each in="${programInstance."${it}".exerciseBundles}" status="i" var="exerciseBundleInstance">
                         <li class="ui-widget-content ui-corner-all exercise-entry">
-                            <g:link action="show"
+                            <g:link action="show" controller="exercise"
                                     id="${exerciseBundleInstance.exercise.id}"><img class="Photo"
                                                                                     src="${createLink(controller: 'image',
                                                                                             action: 'displayImage', id: exerciseBundleInstance.exercise.thumbnail?.id)}"/></g:link>
