@@ -10,7 +10,11 @@ class ProgramDay {
         dayOfWeek nullable: false, blank: false
         exerciseBundles nullable: true, blank: true
     }
-    
+
+    static mapping = {
+        exerciseBundles sort: 'id'
+    }
+
     String toString() {
         dayOfWeek
     }
