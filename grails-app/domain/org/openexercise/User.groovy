@@ -10,10 +10,15 @@ class User {
     boolean accountExpired
     boolean accountLocked
     boolean passwordExpired
+    
+    static hasMany = [programs:Program]
+
+    static mappedBy = [programs:'athlete']
 
     static constraints = {
         username blank: false, unique: true
         password blank: false
+        programs nullable: true, blank: true
     }
 
     static mapping = {

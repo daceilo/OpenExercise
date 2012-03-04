@@ -154,7 +154,6 @@ class BootStrap {
                     typeTwo.addToExercicses(exerciseTwo).save(flush: true, failOnError: true)
                     typeOne.addToExercicses(exerciseThree).save(flush: true, failOnError: true)
                     
-                    //TODO create program
                     def programOne = new Program()
                     programOne.monday.program = programOne
                     programOne.tuesday.program = programOne
@@ -163,6 +162,7 @@ class BootStrap {
                     programOne.friday.program = programOne
                     programOne.saturday.program = programOne
                     programOne.sunday.program = programOne
+                    programOne.createdBy = User.findByUsername("admin")
 
                     programOne.save(flush: true, failOnError: true)
 

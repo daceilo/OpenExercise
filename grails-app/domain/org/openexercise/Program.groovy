@@ -10,6 +10,10 @@ class Program {
     ProgramDay saturday = new ProgramDay(dayOfWeek: "Saturday")
     ProgramDay sunday = new ProgramDay(dayOfWeek: "Sunday")
 
+    User createdBy
+
+    static belongsTo = [athlete:User]
+
     static constraints = {
         monday nullable: false, blank: false
         tuesday nullable: false, blank: false
@@ -18,6 +22,8 @@ class Program {
         friday nullable: false, blank: false
         saturday nullable: false, blank: false
         sunday nullable: false, blank: false
+        createdBy nullable: false, blank: false
+        athlete nullable: true, blank: false
     }
 }
 
