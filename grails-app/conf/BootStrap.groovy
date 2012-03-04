@@ -9,11 +9,45 @@ import javax.imageio.ImageIO
 import org.imgscalr.Scalr
 import org.openexercise.Program
 import org.openexercise.ExerciseBundle
+import org.openexercise.Role
+import org.openexercise.User
+import org.openexercise.UserRole
 
 
 class BootStrap {
 
     def init = { servletContext ->
+        // For all environments, we want to setup our security
+        def userRole = Role.findByAuthority("ROLE_USER") ?: new Role(authority: "ROLE_USER").save(flush:true, failOnError: true)
+        def adminRole = Role.findByAuthority("ROLE_ADMIN") ?: new Role(authority: "ROLE_ADMIN").save(flush:true, failOnError:true)
+
+        // Will be added if they don't exist
+        def baseUsers = [
+                'admin' : adminRole,
+                'user'  : userRole
+        ]
+
+        // If the users don't exist, then add the default ones
+        def users = User.list()
+        if (!users) {
+            baseUsers.each { username, role ->
+                def user = new User(
+                        username: username,
+                        password: 'password',
+                        enabled: true).save(flush:true, failOnError: true)
+
+                UserRole.create user, role, true
+
+            }
+
+
+        }
+
+        // Make sure there are at least one user, two roles and one userrole
+        assert User.count() >= 1
+        assert Role.count() >= 2
+        assert UserRole.count() >= 1
+
         switch (Environment.current) {
         // For dev environment, populate some data on start
             case Environment.DEVELOPMENT:

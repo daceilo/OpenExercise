@@ -99,3 +99,7 @@ grails.resources.modules = {
         resource url:'/js/custom.js'
     }
 }
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.openexercise.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.openexercise.UserRole'
+grails.plugins.springsecurity.authority.className = 'org.openexercise.Role'
