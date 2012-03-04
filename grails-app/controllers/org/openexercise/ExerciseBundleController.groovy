@@ -1,6 +1,7 @@
 package org.openexercise
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.plugins.springsecurity.Secured
 
 class ExerciseBundleController {
 
@@ -18,7 +19,8 @@ class ExerciseBundleController {
     def create() {
         [exerciseBundleInstance: new ExerciseBundle(params)]
     }
-    
+
+    @Secured(['ROLE_ADMIN'])
     def createFromExercise() {
         log.debug("Received: exercise.id = " + params.exercise.id + " programDay.id = " +
                 params.programDay.id + " program.id = " + params.program.id)
@@ -30,6 +32,7 @@ class ExerciseBundleController {
         render newExerciseBundles.id
     }
 
+    @Secured(['ROLE_ADMIN'])
     def save() {
         def exerciseBundleInstance = new ExerciseBundle(params)
         if (!exerciseBundleInstance.save(flush: true)) {
@@ -52,6 +55,7 @@ class ExerciseBundleController {
         [exerciseBundleInstance: exerciseBundleInstance]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def edit() {
         def exerciseBundleInstance = ExerciseBundle.get(params.id)
         if (!exerciseBundleInstance) {
@@ -63,6 +67,7 @@ class ExerciseBundleController {
         [exerciseBundleInstance: exerciseBundleInstance]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def update() {
         def exerciseBundleInstance = ExerciseBundle.get(params.id)
         if (!exerciseBundleInstance) {
@@ -93,6 +98,7 @@ class ExerciseBundleController {
         redirect(action: "show", id: exerciseBundleInstance.id)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def delete() {
         def exerciseBundleInstance = ExerciseBundle.get(params.id)
         if (!exerciseBundleInstance) {

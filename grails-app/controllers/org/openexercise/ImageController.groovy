@@ -1,6 +1,7 @@
 package org.openexercise
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.plugins.springsecurity.Secured
 
 class ImageController {
 
@@ -15,10 +16,12 @@ class ImageController {
         [imageInstanceList: Image.list(params), imageInstanceTotal: Image.count()]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def create() {
         [imageInstance: new Image(params)]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def save() {
         def imageInstance = new Image(params)
         if (!imageInstance.save(flush: true)) {
@@ -48,6 +51,7 @@ class ImageController {
         response.outputStream.write(image.data)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def edit() {
         def imageInstance = Image.get(params.id)
         if (!imageInstance) {
@@ -59,6 +63,7 @@ class ImageController {
         [imageInstance: imageInstance]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def update() {
         def imageInstance = Image.get(params.id)
         if (!imageInstance) {
@@ -89,6 +94,7 @@ class ImageController {
         redirect(action: "show", id: imageInstance.id)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def delete() {
         def imageInstance = Image.get(params.id)
         if (!imageInstance) {

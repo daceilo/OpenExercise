@@ -1,6 +1,7 @@
 package org.openexercise
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.plugins.springsecurity.Secured
 
 class ExerciseTypeController {
 
@@ -15,10 +16,12 @@ class ExerciseTypeController {
         [exerciseTypeInstanceList: ExerciseType.list(params), exerciseTypeInstanceTotal: ExerciseType.count()]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def create() {
         [exerciseTypeInstance: new ExerciseType(params)]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def save() {
         def exerciseTypeInstance = new ExerciseType(params)
         if (!exerciseTypeInstance.save(flush: true)) {
@@ -41,6 +44,7 @@ class ExerciseTypeController {
         [exerciseTypeInstance: exerciseTypeInstance]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def edit() {
         def exerciseTypeInstance = ExerciseType.get(params.id)
         if (!exerciseTypeInstance) {
@@ -52,6 +56,7 @@ class ExerciseTypeController {
         [exerciseTypeInstance: exerciseTypeInstance]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def update() {
         def exerciseTypeInstance = ExerciseType.get(params.id)
         if (!exerciseTypeInstance) {
@@ -82,6 +87,7 @@ class ExerciseTypeController {
         redirect(action: "show", id: exerciseTypeInstance.id)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def delete() {
         def exerciseTypeInstance = ExerciseType.get(params.id)
         if (!exerciseTypeInstance) {
