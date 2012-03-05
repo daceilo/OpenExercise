@@ -66,7 +66,8 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        grails.serverURL = "http://www.openfitness.org"
+        grails.serverURL = "http://www.openexercise.org"
+        org.openexercise.populatedata = true
     }
 }
 

@@ -63,7 +63,7 @@ $(function () {
     // TODO we need to move the JS file into a non-static directory (grails-app) to allow interpretation of the URL lines. They are hard coded right now due to the director.
     function deleteExerciseBundle(id) {
         $.ajax({
-            url:"/OpenExercise/exerciseBundle/delete",
+            url:appContext + "/exerciseBundle/delete",
             type:"POST",
             dataType:"text",
             data:"id=" + id.attr('id').split("-", 2)[1],
@@ -77,7 +77,7 @@ $(function () {
 
     function addToProgramDay(program, day, toAdd, toUpdate) {
         $.ajax({
-            url:"/OpenExercise/exerciseBundle/createFromExercise",
+            url:appContext + "/exerciseBundle/createFromExercise",
             type:"POST",
             dataType:"text",
             data:"program.id=" + program + "&programDay.id=" + day + "&exercise.id=" + toAdd,

@@ -28,6 +28,11 @@
 
 <div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 <g:javascript library="application"/>
+
+<g:javascript>
+    window.appContext = '${request.contextPath}';
+</g:javascript>
+
 <r:layoutResources/>
 </body>
 </html>
