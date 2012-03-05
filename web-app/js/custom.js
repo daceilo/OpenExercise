@@ -60,7 +60,6 @@ $(function () {
                 });
     }
 
-    // TODO we need to move the JS file into a non-static directory (grails-app) to allow interpretation of the URL lines. They are hard coded right now due to the director.
     function deleteExerciseBundle(id) {
         $.ajax({
             url:appContext + "/exerciseBundle/delete",

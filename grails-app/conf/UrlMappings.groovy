@@ -14,7 +14,6 @@ class UrlMappings {
         }
 
         "/oldindex"(view: "/index")
-		//"/"(view:"/index")
 		"500"(view:'/error')
 	}
 }
