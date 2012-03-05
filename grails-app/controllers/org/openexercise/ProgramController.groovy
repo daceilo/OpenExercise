@@ -36,6 +36,26 @@ class ProgramController {
     }
 
     @Secured(['ROLE_ADMIN'])
+    def ajaxCreateProgram() {
+        log.debug("Going to create a new program from AJAX request")
+
+        // Create all the days, then create the program, then save and flush
+        def program = new Program()
+        program.monday.program = program
+        program.tuesday.program = program
+        program.wednesday.program = program
+        program.thursday.program = program
+        program.friday.program = program
+        program.saturday.program = program
+        program.sunday.program = program
+        program.createdBy = springSecurityService.currentUser
+
+        program.save(flush: true, failOnError: true)
+
+        render program.id
+    }
+
+    @Secured(['ROLE_ADMIN'])
     def save() {
         def programInstance = new Program(params)
         if (!programInstance.save(flush: true)) {

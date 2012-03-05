@@ -41,8 +41,8 @@ $(function () {
     });
 
     $("button").click(function () {
-        $("div:hidden").show("fast");
-        $("#new-program").hide("fast");
+        alert("Going to call AJAX");
+        createNewProgram();
     });
 
     $("li", $exercises).draggable({
@@ -85,6 +85,25 @@ $(function () {
             success:function (result) {
                 toUpdate.attr('id', "exercisebundle-" + result);
                 addClickable();
+            }
+        });
+    }
+
+    // TODO Make sure that user is authenticated. Returning unauth error.
+    function createNewProgram() {
+        alert("About to call AJAX at " + appContext + "/program/ajaxCreateProgram");
+        $.ajax({
+            url:appContext + "/program/ajaxCreateProgram",
+            type:"POST",
+            cache:false,
+            async:false,
+            error:function (xhr, ajaxOptions, thrownError){
+                alert(xhr.status);
+                alert(thrownError);
+            },
+            success:function (result) {
+                alert("Created program");
+                window.location.replace(appContext + "/program/edit/" + result);
             }
         });
     }

@@ -9,8 +9,7 @@ class UrlMappings {
 
         "/" {
             controller = "program"
-            action = "edit"
-            id = "1"
+            action = "list"
         }
 
         "/oldindex"(view: "/index")
