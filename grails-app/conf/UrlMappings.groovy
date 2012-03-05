@@ -7,7 +7,14 @@ class UrlMappings {
 			}
 		}
 
-		"/"(view:"/index")
+        "/" {
+            controller = "program"
+            action = "edit"
+            id = "1"
+        }
+
+        "/oldindex"(view: "/index")
+		//"/"(view:"/index")
 		"500"(view:'/error')
 	}
 }
