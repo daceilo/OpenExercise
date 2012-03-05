@@ -103,6 +103,8 @@
             </div>
         </g:each>
     </div>
+
+    <!-- onClick, submit a request to create a new program -->
     <button id="new-program">Create new program</button>
 
     <!-- Build out Program where exercises can be dropped. Rather than doing this by hand, we will iterate over the days

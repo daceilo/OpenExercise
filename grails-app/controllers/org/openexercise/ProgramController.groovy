@@ -4,6 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
 
 class ProgramController {
+    def springSecurityService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -18,7 +19,20 @@ class ProgramController {
 
     @Secured(['ROLE_ADMIN'])
     def create() {
-        [programInstance: new Program(params)]
+        // Create all the days, then create the program, then save and flush
+        def program = new Program()
+        program.monday.program = program
+        program.tuesday.program = program
+        program.wednesday.program = program
+        program.thursday.program = program
+        program.friday.program = program
+        program.saturday.program = program
+        program.sunday.program = program
+        program.createdBy = springSecurityService.currentUser
+
+        program.save(flush: true, failOnError: true)
+
+        [programInstance: program]
     }
 
     @Secured(['ROLE_ADMIN'])
