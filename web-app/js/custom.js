@@ -68,6 +68,11 @@ $(function () {
             data:"id=" + id.attr('id').split("-", 2)[1],
             cache:false,
             async:true,
+            error:function (xhr, ajaxOptions, thrownError){
+                alert(xhr.status);
+                alert(thrownError);
+                window.location.replace(appContext + "/login")
+            },
             success:function (result) {
                 $("#" + id.attr('id')).remove();
             }
@@ -82,6 +87,11 @@ $(function () {
             data:"program.id=" + program + "&programDay.id=" + day + "&exercise.id=" + toAdd,
             cache:false,
             async:true,
+            error:function (xhr, ajaxOptions, thrownError){
+                alert(xhr.status);
+                alert(thrownError);
+                window.location.replace(appContext + "/login")
+            },
             success:function (result) {
                 toUpdate.attr('id', "exercisebundle-" + result);
                 addClickable();
@@ -100,6 +110,7 @@ $(function () {
             error:function (xhr, ajaxOptions, thrownError){
                 alert(xhr.status);
                 alert(thrownError);
+                window.location.replace(appContext + "/login")
             },
             success:function (result) {
                 alert("Created program");
