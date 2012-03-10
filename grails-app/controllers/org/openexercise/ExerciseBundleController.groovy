@@ -22,14 +22,18 @@ class ExerciseBundleController {
 
     @Secured(['ROLE_ADMIN'])
     def createFromExercise() {
-        log.debug("Received: exercise.id = " + params.exercise.id + " programDay.id = " +
-                params.programDay.id + " program.id = " + params.program.id)
+        if (params.exercise?.id) {
+            log.debug("Received: exercise.id = " + params.exercise?.id + " programDay.id = " +
+                    params.programDay?.id + " program.id = " + params.program?.id)
 
-        def newExerciseBundles = new ExerciseBundle(exercise: Exercise.get(params.exercise.id), repetitions: 0,
-                durationInSeconds: 0, programDay: ProgramDay.get(params.programDay.id)).save(flush: true,
-                failOnError: true)
+            def newExerciseBundles = new ExerciseBundle(exercise: Exercise.get(params.exercise?.id), repetitions: 0,
+                    durationInSeconds: 0, programDay: ProgramDay.get(params.programDay?.id)).save(flush: true,
+                    failOnError: true)
 
-        render newExerciseBundles.id
+            render newExerciseBundles.id
+        } else {
+            redirect(uri: "/")
+        }
     }
 
     @Secured(['ROLE_ADMIN'])

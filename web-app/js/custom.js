@@ -69,8 +69,6 @@ $(function () {
             cache:false,
             async:true,
             error:function (xhr, ajaxOptions, thrownError){
-                alert(xhr.status);
-                alert(thrownError);
                 window.location.replace(appContext + "/login")
             },
             success:function (result) {
@@ -88,8 +86,6 @@ $(function () {
             cache:false,
             async:true,
             error:function (xhr, ajaxOptions, thrownError){
-                alert(xhr.status);
-                alert(thrownError);
                 window.location.replace(appContext + "/login")
             },
             success:function (result) {
@@ -108,8 +104,6 @@ $(function () {
             cache:false,
             async:false,
             error:function (xhr, ajaxOptions, thrownError){
-                alert(xhr.status);
-                alert(thrownError);
                 window.location.replace(appContext + "/login")
             },
             success:function (result) {
