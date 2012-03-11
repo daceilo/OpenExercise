@@ -9,6 +9,8 @@
 $(function () {
     var $exercises = $(".draggable");
     var trash_icon = '<a id="trash" href="#" title="Remove from program" class="ui-icon ui-icon-trash">Remove</a>';
+    var inputs = '<input id="repetitions-temp" class="ui-widget-content ui-corner-all" type=text value="Number of reps" />' +
+            '<input id="durationInSeconds-temp" class="ui-widget-content ui-corner-all" type=text value="Duration in seconds" />'
 
     $(document).ready(function () {
         addClickable();
@@ -33,7 +35,7 @@ $(function () {
 
             $newDraggable.removeClass("ui-draggable");
             $newDraggable.addClass("exercise-entry");
-            $newDraggable.append(trash_icon).appendTo($list);
+            $newDraggable.append(trash_icon).append(inputs).appendTo($list);
 
             var $idArray = this.id.split("-", 2);
             addToProgramDay($idArray[1], $idArray[0], ui.draggable.attr('id'), $newDraggable);
@@ -93,7 +95,10 @@ $(function () {
                 window.location.replace(appContext + "/login")
             },
             success:function (result) {
+                /* need to update repetitions-temp and durationInSeconds-temp with appropriate ID */
                 toUpdate.attr('id', "exercisebundle-" + result);
+                toUpdate.find( "#repetitions-temp" ).attr('id', "repetitions-" + result);
+                toUpdate.find( "#durationInSeconds-temp" ).attr('id', "durationInSeconds-" + result);
                 addClickable();
             }
         });
