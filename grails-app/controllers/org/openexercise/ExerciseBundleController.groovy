@@ -71,6 +71,7 @@ class ExerciseBundleController {
         [exerciseBundleInstance: exerciseBundleInstance]
     }
 
+    // TODO Right now, this is not failing gracefully when user not logged in
     @Secured(['ROLE_ADMIN'])
     def update() {
         def exerciseBundleInstance = ExerciseBundle.get(params.id)
@@ -101,6 +102,8 @@ class ExerciseBundleController {
         flash.message = message(code: 'default.updated.message', args: [message(code: 'exerciseBundle.label', default: 'ExerciseBundle'), exerciseBundleInstance.id])
         redirect(action: "show", id: exerciseBundleInstance.id)
     }
+
+
 
     @Secured(['ROLE_ADMIN'])
     def delete() {

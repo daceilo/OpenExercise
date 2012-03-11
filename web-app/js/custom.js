@@ -35,7 +35,7 @@ $(function () {
             $newDraggable.addClass("exercise-entry");
             $newDraggable.append(trash_icon).appendTo($list);
 
-            var $idArray = this.id.split("-", 2)
+            var $idArray = this.id.split("-", 2);
             addToProgramDay($idArray[1], $idArray[0], ui.draggable.attr('id'), $newDraggable);
         }
     });
@@ -51,13 +51,17 @@ $(function () {
         appendTo:'body'
     });
 
+    $("input", ".exercise-entry").change(function() {
+        updateExerciseBundle(this.id, this.value)
+    });
+
     function addClickable() {
         $("a.ui-icon-trash").unbind('click.addit').bind('click.addit', function (event) {
-                    var $item = $(this).parent();
+            var $item = $(this).parent();
 
-                    deleteExerciseBundle($item);
+            deleteExerciseBundle($item);
 
-                });
+        });
     }
 
     function deleteExerciseBundle(id) {
@@ -68,7 +72,7 @@ $(function () {
             data:"id=" + id.attr('id').split("-", 2)[1],
             cache:false,
             async:true,
-            error:function (xhr, ajaxOptions, thrownError){
+            error:function (xhr, ajaxOptions, thrownError) {
                 window.location.replace(appContext + "/login")
             },
             success:function (result) {
@@ -85,7 +89,7 @@ $(function () {
             data:"program.id=" + program + "&programDay.id=" + day + "&exercise.id=" + toAdd,
             cache:false,
             async:true,
-            error:function (xhr, ajaxOptions, thrownError){
+            error:function (xhr, ajaxOptions, thrownError) {
                 window.location.replace(appContext + "/login")
             },
             success:function (result) {
@@ -95,7 +99,6 @@ $(function () {
         });
     }
 
-    // TODO Make sure that user is authenticated. Returning unauth error.
     function createNewProgram() {
         alert("About to call AJAX at " + appContext + "/program/ajaxCreateProgram");
         $.ajax({
@@ -103,12 +106,33 @@ $(function () {
             type:"POST",
             cache:false,
             async:false,
-            error:function (xhr, ajaxOptions, thrownError){
+            error:function (xhr, ajaxOptions, thrownError) {
                 window.location.replace(appContext + "/login")
             },
             success:function (result) {
                 alert("Created program");
                 window.location.replace(appContext + "/program/edit/" + result);
+            }
+        });
+    }
+
+    function updateExerciseBundle(id, value) {
+        /* 0 = what to update, 1 = ID of exercise bundle to update*/
+        var $idArray = id.split("-", 2);
+
+        /* alert("About to update " + $idArray[0] + " in exercise bundle " + $idArray[1] + " to value " + value); */
+        $.ajax({
+            url:appContext + "/exerciseBundle/update",
+            type:"POST",
+            dataType:"text",
+            data:"id=" + $idArray[1] + "&" + $idArray[0] + "=" + value,
+            cache:false,
+            async:false,
+            error:function (xhr, ajaxOptions, thrownError) {
+                window.location.replace(appContext + "/login")
+            },
+            success:function (result) {
+                /* alert("Updated object"); */
             }
         });
     }

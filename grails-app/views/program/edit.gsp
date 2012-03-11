@@ -89,6 +89,13 @@
                                 </h4>
                                 <a id="trash" href="#" title='Remove from program'
                                    class='ui-icon ui-icon-trash'>Remove</a>
+                                <input id="repetitions-${exerciseBundleInstance.id}"
+                                       class="ui-widget-content ui-corner-all" type=text
+                                       value="${exerciseBundleInstance.repetitions ? exerciseBundleInstance.repetitions : 'Number of reps'}" />
+                                <input id="durationInSeconds-${exerciseBundleInstance.id}"
+                                       class="ui-widget-content ui-corner-all" type=text
+                                       value="${exerciseBundleInstance.durationInSeconds ?
+                                           exerciseBundleInstance.durationInSeconds : 'Duration in seconds'}" />
                             </li>
                         </g:each>
 
@@ -108,6 +115,7 @@
                             onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
         </fieldset>
     </g:form>
+
 </div>
 </body>
 </html>
