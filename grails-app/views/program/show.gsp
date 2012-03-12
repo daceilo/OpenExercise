@@ -49,7 +49,10 @@
                             <h4 class="ui-widget-content ui-corner-all">
                                 ${fieldValue(bean: exerciseBundleInstance.exercise, field: "name")}
                             </h4>
-
+                            <p style="float: left">Repetitions: ${exerciseBundleInstance.repetitions}</p>
+                            <p style="float: right; padding-right: 10px;">Duration (In Seconds): ${exerciseBundleInstance
+                                    .durationInSeconds}</p>
+                            <button class="ui-widget-content ui-corner-all" style="width: 150px">Feedback</button>
                         </li>
                     </g:each>
 

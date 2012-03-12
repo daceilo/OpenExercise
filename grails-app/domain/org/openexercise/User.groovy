@@ -10,6 +10,7 @@ class User {
     boolean accountExpired
     boolean accountLocked
     boolean passwordExpired
+    Float startingWeight
     
     static hasMany = [programs:Program, entries: Entry, exerciseEntries: ExerciseEntry]
 
@@ -21,6 +22,7 @@ class User {
         programs nullable: true, blank: true
         entries  nullable: true, blank: true
         exerciseEntries nullable: true, blank: true
+        startingWeight nullable: true, blank: true
     }
 
     static mapping = {

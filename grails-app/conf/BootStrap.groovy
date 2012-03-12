@@ -120,6 +120,7 @@ class BootStrap {
             typeOne.addToExercicses(exerciseThree).save(flush: true, failOnError: true)
 
             def programOne = new Program()
+            def user = User.findByUsername("admin")
             programOne.monday.program = programOne
             programOne.tuesday.program = programOne
             programOne.wednesday.program = programOne
@@ -127,9 +128,11 @@ class BootStrap {
             programOne.friday.program = programOne
             programOne.saturday.program = programOne
             programOne.sunday.program = programOne
-            programOne.createdBy = User.findByUsername("admin")
-
+            programOne.createdBy = user
+            programOne.athlete = user
+                      
             programOne.save(flush: true, failOnError: true)
+            user.addToPrograms(programOne).save(flush: true, failOnError: true)
 
             def exerciseBundleOne = new ExerciseBundle(exercise: exerciseOne, repetitions: 3,
                     durationInSeconds: null, programDay: programOne.monday)
