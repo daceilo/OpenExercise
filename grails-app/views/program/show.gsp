@@ -49,17 +49,23 @@
                             <h4 class="ui-widget-content ui-corner-all">
                                 ${fieldValue(bean: exerciseBundleInstance.exercise, field: "name")}
                             </h4>
+
                             <p style="float: left">Repetitions: ${exerciseBundleInstance.repetitions}</p>
+
                             <p style="float: right; padding-right: 10px;">Duration (In Seconds): ${exerciseBundleInstance
                                     .durationInSeconds}</p>
-                            <button class="ui-widget-content ui-corner-all" style="width: 150px">Feedback</button>
                         </li>
                     </g:each>
 
                 </ul>
+                <g:if test="${programInstance."${it}".exerciseBundles.size() > 0}">
+                    <button id="feedback-blogEntry-${programInstance."${it}".id}-ProgramDay"
+                            class="feedback-button ui-widget-content ui-corner-all">Feedback</button>
+                </g:if>
             </div>
         </div>
     </g:each>
+
 </div>
 
 <g:form style="clear: both;">

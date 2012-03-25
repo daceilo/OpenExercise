@@ -44,7 +44,12 @@ $(function () {
 
     $("button").click(function () {
         alert("Going to call AJAX");
-        createNewProgram();
+        if (this.id.indexOf("feedback") != -1) {
+            //alert("Feedback button");
+            addEntry(this.id.toString());
+        } else {
+            createNewProgram();
+        }
     });
 
     $("li", $exercises).draggable({
@@ -56,6 +61,30 @@ $(function () {
     $("input", ".exercise-entry").change(function() {
         updateExerciseBundle(this.id, this.value)
     });
+
+    function addEntry(to) {
+        var $idArray = to.split("-", 4);
+        // $idArray[0] = string "feedback"
+        // $idArray[1] = string - Domain type of object to create (e.g. blogEntry)
+        // $idArray[2] = string - ID of domain object to associate feedback to (e.g. 2)
+        // $idArray[3] = string - Type of object entry should be associated to (e.g. ProgramDay)
+        confirm("Going to add " + $idArray[3] + " to " + $idArray[1] + " with ID " + $idArray[2]);
+        $.ajax({
+            url:appContext + "/" + $idArray[1] + " /ajaxCreateFrom",
+            type:"POST",
+            dataType:"text",
+            data:"id=" + $idArray[2] + "&type=" + $idArray[3] ,
+            cache:false,
+            async:true,
+            error:function (xhr, ajaxOptions, thrownError) {
+                window.location.replace(appContext + "/login")
+            },
+            success:function (result) {
+                alert("Created " + $idArray[1]);
+                window.location.replace(appContext + "/" + $idArray[1] + "/edit/" + result);
+            }
+        });
+    }
 
     function addClickable() {
         $("a.ui-icon-trash").unbind('click.addit').bind('click.addit', function (event) {

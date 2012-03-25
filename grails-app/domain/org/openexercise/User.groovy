@@ -12,7 +12,7 @@ class User {
     boolean passwordExpired
     Float startingWeight
     
-    static hasMany = [programs:Program, entries: Entry, exerciseEntries: ExerciseEntry]
+    static hasMany = [programs:Program, blogEntries: BlogEntry, exerciseEntries: ExerciseEntry]
 
     static mappedBy = [programs:'athlete']
 
@@ -20,9 +20,13 @@ class User {
         username blank: false, unique: true
         password blank: false
         programs nullable: true, blank: true
-        entries  nullable: true, blank: true
+        blogEntries  nullable: true, blank: true
         exerciseEntries nullable: true, blank: true
         startingWeight nullable: true, blank: true
+    }
+    
+    String toString() {
+        username
     }
 
     static mapping = {
